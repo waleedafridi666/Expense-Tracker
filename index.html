@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXPENSE TRACKER</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./output.css">
+</head>
+<body class="m-0 bg-gray-100 font-sans text-gray-900 [line-height:1.5]">
+  <div class="mx-auto max-w-[880px] px-4 pb-20 pt-7 sm:px-0 sm:pt-10">
+    <header class="mb-5 flex flex-col items-start gap-1 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <h1 class="m-0 text-[1.75rem] font-extrabold leading-[1.2] tracking-[-0.02em]">Expense Tracker</h1>
+        <p class="text-[0.8rem] text-gray-500 max-sm:hidden">Track where your money goes</p>
+      </div>
+      <span class="text-[0.85rem] font-normal text-gray-500 sm:text-xs sm:font-medium sm:text-gray-700" id="month-label"></span>
+    </header>
+
+    <div class="grid grid-cols-1 items-start gap-4 min-[601px]:grid-cols-[224px_minmax(0,1fr)] min-[601px]:gap-[18px]">
+      <section class="row-start-2 min-[601px]:col-start-1 min-[601px]:row-start-1 min-[601px]:row-span-2 rounded-[14px] border border-gray-200 bg-white p-5 min-[601px]:p-[18px]">
+        <h2 id="form-title" class="mb-[14px] text-[1.05rem] font-bold min-[601px]:text-[0.95rem]">Add Expense</h2>
+        <form id="expense-form" novalidate>
+          <label for="title" class="mb-1.5 block text-[0.8rem] font-semibold text-gray-700 min-[601px]:mb-1 min-[601px]:text-[0.7rem]">Title</label>
+          <input type="text" id="title" placeholder="e.g Transport" class="mb-3 h-11 w-full rounded-lg border border-gray-300 bg-white px-[10px] text-base text-gray-900 outline-none focus:border-teal-800 focus:ring-2 focus:ring-teal-800/25 min-[601px]:h-[34px] min-[601px]:text-[0.78rem]">
+          <label for="amount" class="mb-1.5 block text-[0.8rem] font-semibold text-gray-700 min-[601px]:mb-1 min-[601px]:text-[0.7rem]">Amount</label>
+          <input type="text" id="amount" inputmode="decimal" placeholder="0.00" class="mb-3 h-11 w-full rounded-lg border border-gray-300 bg-white px-[10px] text-base text-gray-900 outline-none focus:border-teal-800 focus:ring-2 focus:ring-teal-800/25 min-[601px]:h-[34px] min-[601px]:text-[0.78rem]">
+          <div class="grid grid-cols-1 gap-0 min-[601px]:grid-cols-2 min-[601px]:gap-2">
+            <div>
+              <label for="category" class="mb-1.5 block text-[0.8rem] font-semibold text-gray-700 min-[601px]:mb-1 min-[601px]:text-[0.7rem]">Category</label>
+              <select id="category" class="mb-3 h-11 w-full rounded-lg border border-gray-300 bg-white px-[10px] text-base text-gray-900 outline-none focus:border-teal-800 focus:ring-2 focus:ring-teal-800/25 min-[601px]:h-[34px] min-[601px]:text-[0.78rem]">
+                <option>Food</option><option>Transport</option><option>Bills</option><option>Shopping</option><option>Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="date" class="mb-1.5 block text-[0.8rem] font-semibold text-gray-700 min-[601px]:mb-1 min-[601px]:text-[0.7rem]">Date</label>
+              <input type="date" id="date" class="mb-3 h-11 w-full rounded-lg border border-gray-300 bg-white px-[10px] text-base text-gray-900 outline-none focus:border-teal-800 focus:ring-2 focus:ring-teal-800/25 min-[601px]:h-[34px] min-[601px]:text-[0.78rem]">
+            </div>
+          </div>
+          <div id="error" hidden class="mb-3 flex items-start gap-1.5 rounded-lg bg-red-100 px-[10px] py-[9px] text-[0.8rem] font-semibold leading-[1.35] text-red-700 min-[601px]:text-[0.68rem]">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" class="mt-px shrink-0"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16.5v.01"/></svg>
+            <span id="error-text"></span>
+          </div>
+          <div class="flex gap-2">
+            <button type="submit" class="h-11 flex-1 cursor-pointer rounded-lg border-0 bg-teal-800 text-[0.95rem] font-semibold text-white hover:bg-teal-900 min-[601px]:h-9 min-[601px]:text-[0.78rem]" id="submit-btn">Add Expense</button>
+            <button type="button" class="h-11 cursor-pointer rounded-lg border border-gray-300 bg-white px-3.5 text-[0.95rem] font-semibold text-gray-700 min-[601px]:h-9 min-[601px]:text-[0.78rem]" id="cancel-btn" hidden>Cancel</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="min-w-0 rounded-[14px] bg-[#17181c] px-5 py-5 text-white min-[601px]:col-start-2 min-[601px]:row-start-1 min-[601px]:px-5 min-[601px]:py-[18px]">
+        <div class="mb-[14px] flex flex-col items-start gap-1 min-[601px]:mb-[18px] min-[601px]:flex-row min-[601px]:items-end min-[601px]:justify-between">
+          <div>
+            <div class="text-[0.68rem] tracking-[0.08em] text-gray-300">Total spent</div>
+            <div class="text-[2.2rem] font-extrabold leading-[1.2] tracking-[-0.02em] min-[601px]:text-[2.1rem]" id="total">$0.00</div>
+          </div>
+          <div class="text-[0.8rem] text-gray-300 min-[601px]:text-xs min-[601px]:text-gray-400" id="count">0 Expenses</div>
+        </div>
+        <div class="grid grid-cols-2 gap-2 min-[601px]:grid-cols-5" id="cat-grid"></div>
+      </section>
+
+      <section class="min-w-0 overflow-hidden rounded-[14px] border border-gray-200 bg-white min-[601px]:col-start-2 min-[601px]:row-start-2">
+        <div class="flex items-center justify-between gap-2 px-3 py-4 min-[601px]:px-5">
+          <h2 class="text-[1.05rem] font-bold min-[601px]:text-[0.95rem]">Expenses</h2>
+          <div class="flex items-center gap-2">
+            <label for="filter" class="hidden text-[0.72rem] text-gray-700 min-[601px]:block">Filter</label>
+            <select id="filter" class="m-0 h-10 max-w-[170px] rounded-lg border border-gray-300 bg-white px-2 text-sm text-gray-900 outline-none focus:border-teal-800 focus:ring-2 focus:ring-teal-800/25 min-[601px]:h-[34px] min-[601px]:w-auto min-[601px]:text-[0.78rem]">
+              <option value="All">All Categories</option><option>Food</option><option>Transport</option><option>Bills</option><option>Shopping</option><option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse">
+            <thead class="max-[600px]:hidden">
+              <tr class="border-y border-gray-200 text-left text-[0.62rem] font-semibold uppercase tracking-[0.06em] text-gray-500">
+                <th class="border-y border-gray-200 py-[10px] pl-3 min-[601px]:pl-5">Title</th>
+                <th class="border-y border-gray-200 px-2 py-[10px]">Category</th>
+                <th class="border-y border-gray-200 px-2 py-[10px]">Date</th>
+                <th class="border-y border-gray-200 px-2 py-[10px] text-right">Amount</th>
+                <th class="border-y border-gray-200 py-[10px] pr-3 text-right min-[601px]:pr-5">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="expense-list"></tbody>
+          </table>
+        </div>
+        <p class="border-t border-gray-200 px-5 py-7 text-center text-[0.78rem] text-gray-500 max-[600px]:rounded-[14px] max-[600px]:border" id="empty" hidden>No Expenses Yet</p>
+      </section>
+    </div>
+  </div>
+  <script src="./expense.js"></script>
+</body>
+</html>
